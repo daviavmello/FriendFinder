@@ -1,6 +1,8 @@
 // Path package to get the html file path
 let path = require('path');
 
+module.exports = app => {
+    
 // GET route that sends the user to AJAX Page
 app.get('/survey', (req,res) => {
     res.sendFile(path.join(__dirname, '../public/survey.html'));
@@ -10,3 +12,4 @@ app.get('/survey', (req,res) => {
 app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '../public/home.html'));
 });
+};

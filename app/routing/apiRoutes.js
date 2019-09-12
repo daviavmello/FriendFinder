@@ -1,5 +1,5 @@
 // Loads data source
-let friends = require('../data/friends');
+let friends = require('../data/friendsData');
 
 module.exports = app => {
 
@@ -8,12 +8,14 @@ app.get('/api/friends', (req,res) => {
     return res.json(friends)
 });
 
-// Handle incoming survey results
+// Handle incoming survey results from survey.html and sends back data to frontend
 app.post("/api/friends", (req,res) => {
     let match = req.body;
-    match.routeName = match.name.replace(/\s+/g, "").toLowerCase();
+
     console.log(match);
-    match.push(match);
-    res.json(match);
+    friends.push(match);
+    res.json(friends);
+
+    
 }); 
 };
