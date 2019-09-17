@@ -3,47 +3,47 @@ let friends = require("../data/friendsData");
 
 module.exports = app => {
   // Display JSON of all possible friends
-  app.get("/api/friends", (req, res) => {
-    return res.json(friends);
-  });
+  app.get("/api/friends", (req, res) => res.json(friends));
 
   // Handle incoming survey results from survey.html and sends back data to frontend
   app.post("/api/friends", (req, res) => {
     let newFriend = req.body;
-    let currentFriendScores;
-    // let newFriendScores = newFriend.scores
     let newArray = [];
-    for (let i = 0; i < friends.length; i++) {
-        currentFriendScores = friends[i].scores;
+    let sumNewFriendScores = 0;
+    let sumCurrentFriendScores = 0;
+    let matchName = '';
+    let matchPhoto = '';
 
-        for (i = 0; i < currentFriendScores.length; i++) {
-            console.log(newFriend.scores[i]);
-            console.log(currentFriendScores[i]);
-            
-            newArray.push(Math.abs(parseInt(newFriend.scores[i]) - parseInt(currentFriendScores[i])));
-            // console.log(newArray);
-          }
-
-
-          
-        
-    }
-
-
-
-
-
-    console.log(newArray);
-
-
-
-
-
-
-
-
+    friends.forEach(friends => {
+        let currentFriend = friends.scores;
+        sumCurrentFriendScores = currentFriend.reduce((x,y) => x + y);
+        newArray.push(sumCurrentFriendScores);
+    });
     
+        let newUser = newFriend.scores;
+        newUser = newUser.map(Number);
+        sumNewFriendScores = newUser.reduce((x,y) => x + y)
+
+
+        let closestNumber = newArray.reduce(function(prev, curr) {
+            currentFriend = (Math.abs(curr - sumNewFriendScores) < Math.abs(prev - sumNewFriendScores) ? curr : prev);
+          });
+
+          for (let i = 0; i < friends.length; i++) {
+            if (currentFriend === newArray[i]) {
+                matchName = friends[i].name;
+                matchPhoto = friends[i].photo;
+                console.log('Match name: ' + matchName);
+                console.log('Photo: ' + matchPhoto);
+            }
+        };
+ 
+    res.json({
+        name: matchName,
+        photo: matchPhoto
+    })
+
+    friends.push(newFriend);
+
   });
-  //   friends.push(newFriend);
-  //   res.json(friends);
 };
