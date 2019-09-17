@@ -19,18 +19,17 @@ module.exports = app => {
         sumCurrentFriendScores = currentFriend.reduce((x,y) => x + y);
         newArray.push(sumCurrentFriendScores);
     });
-    
+
         let newUser = newFriend.scores;
         newUser = newUser.map(Number);
         sumNewFriendScores = newUser.reduce((x,y) => x + y)
 
-
         let closestNumber = newArray.reduce(function(prev, curr) {
-            currentFriend = (Math.abs(curr - sumNewFriendScores) < Math.abs(prev - sumNewFriendScores) ? curr : prev);
+            return (Math.abs(curr - sumNewFriendScores) < Math.abs(prev - sumNewFriendScores) ? curr : prev);
           });
 
           for (let i = 0; i < friends.length; i++) {
-            if (currentFriend === newArray[i]) {
+            if (closestNumber === newArray[i]) {
                 matchName = friends[i].name;
                 matchPhoto = friends[i].photo;
                 console.log('Match name: ' + matchName);
@@ -42,8 +41,6 @@ module.exports = app => {
         name: matchName,
         photo: matchPhoto
     })
-
     friends.push(newFriend);
-
   });
 };

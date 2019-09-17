@@ -16,7 +16,7 @@ let friends = [
   {
     name: "Roger",
     photo:
-      "https://upload.wikimedia.ohttps://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Basketball.jpeg/220px-Basketball.jpegrg/wikipedia/commons/9/93/Flamengo-RJ_%28BRA%29.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Basketball.jpeg/220px-Basketball.jpeg",
     scores: [4, 2, 2, 3, 5, 5, 1, 3, 3, 2]
   }
 ];
